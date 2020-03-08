@@ -1,5 +1,6 @@
 package com.txt.datacollection.domain;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.Entity;

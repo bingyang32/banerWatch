@@ -2,6 +2,7 @@ package com.txt.datacollection.controller;
 
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
+import com.txt.datacollection.content.PararmNameValue;
 import com.txt.datacollection.domain.MotorLog;
 import com.txt.datacollection.domain.Person;
 import com.txt.datacollection.resipository.PersonResipository;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletRequest;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -32,7 +34,7 @@ public class DataPushController {
     MotorLogService motorLogService;
 
     @GetMapping("push")
-    public void getMapping(ServletRequest request) throws IOException {
+    public void getMapping(ServletRequest request) throws IOException, NoSuchFieldException, IllegalAccessException {
         Enumeration<String> parameterNames = request.getParameterNames();
         //判断当前参数是否以reg 开头
 
@@ -62,6 +64,17 @@ public class DataPushController {
                 motorLog.setRegStartId(regId.toString());
 
             } else {
+
+                String paramName = startWithReg.get(i);
+                String parameterValue = request.getParameter(paramName);
+                //获取参数名称
+                String filedName = PararmNameValue.getObjectName(paramName);
+                //通过属性名字 获取Filed对下给你
+                Field declaredField = motorLog.getClass().getDeclaredField(filedName);
+                //设置访问权限
+                declaredField.setAccessible(true);
+                // 赋值
+                declaredField.set(motorLog, parameterValue);
 
             }
 

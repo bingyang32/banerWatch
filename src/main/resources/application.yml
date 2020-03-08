@@ -2,7 +2,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite:E:\\db\\db.db
+    url: jdbc:sqlite:D:\\db\\db.db
     druid:
       filter:
         stat:

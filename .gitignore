@@ -37,3 +37,4 @@ gen
 HELP.md
 SqliteDemo1.iml
 target/
+/src/test/java/
