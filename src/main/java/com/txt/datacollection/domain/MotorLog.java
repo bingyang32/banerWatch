@@ -26,7 +26,7 @@ public class MotorLog {
     private String xas;
     private String yas;
     private LocalDateTime time;
-    private Integer MotorInforId;
+    private String regStartId;
 
 
 

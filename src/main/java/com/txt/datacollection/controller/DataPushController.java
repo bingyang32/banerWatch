@@ -25,8 +25,7 @@ import java.util.stream.Collectors;
  * @Date 2020-03-08 15:03
  **/
 @RestController
-public class DataPushController
-{
+public class DataPushController {
     @Autowired
     PersonResipository personResipository;
     @Autowired
@@ -42,16 +41,15 @@ public class DataPushController
         // IterUtil.toList()
 
         ArrayList<String> list = Collections.list(parameterNames);
+
+
         //获取reg开头的参数
-
-
-
         List<String> startWithReg = list.stream().filter(s -> s.startsWith("reg")).collect(Collectors.toList());
 
+        MotorLog motorLog = null;
         for (int i = 0; i < startWithReg.size(); i++) {
 
 
-            MotorLog motorLog = null;
             //如果可以被5整除则为第1个参数，创建对象并进行复制
 
             if (i % 5 == 0) {
@@ -61,6 +59,7 @@ public class DataPushController
                 motorLog = new MotorLog();
 
                 String regId = startWithReg.get(i);
+                motorLog.setRegStartId(regId.toString());
 
             } else {
 
@@ -69,18 +68,13 @@ public class DataPushController
         }
 
 
-
         for (String s : startWithReg) {
 
-            System.out.println(String.format(request.getParameter("reg")+":%s",s));
+            System.out.println(String.format(request.getParameter("reg") + ":%s", s));
 
         }
         // Log log = LogFactory.get();
         // DateTime timeParsed = DateUtil.parse("2017-01-15", "yyyy-MM-dd");
-
-
-
-
 
 
     }
