@@ -36,6 +36,4 @@ gen
 .idea/
 HELP.md
 SqliteDemo1.iml
-src/main/resources/static/
-src/main/resources/templates/
 target/

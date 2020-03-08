@@ -27,6 +27,10 @@ public class MotorModel {
     private Double zLower;
     private Double cUpper;
     private Double cLower;
+    private Double xsLower;
+    private Double xsUper;
+    private Double zsLower;
+    private Double zsUper;
 
 
 }

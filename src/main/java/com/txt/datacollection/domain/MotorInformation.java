@@ -15,9 +15,10 @@ import javax.persistence.Id;
 @Entity
 public class MotorInformation {
     @Id
-    private String regId;
+    private String regStartId;
+    private String ip;
     //马达型号ID
     private String motorId;
     private String name;
-    private String ip;
+    private String motorSite;
 }
