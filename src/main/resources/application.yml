@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:E:\\db\\db.db
+    druid:
+      filter:
+        stat:
+          log-slow-sql: true
+      stat-view-servlet:
+        login-username: admin
+        login-password: admin
+#        reset-enable: false
+#        url-pattern: /*
+        enabled: true
+      web-stat-filter:
+        enabled: true
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    database-platform: com.txt.datacollection.config.SQLiteDialect
+    hibernate:
+      ddl-auto: update
+server:
+  port: 81
