@@ -1,10 +1,6 @@
 package com.txt.datacollection.controller;
 
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.date.DateUtil;
-import com.txt.datacollection.content.PararmNameValue;
 import com.txt.datacollection.domain.MotorLog;
-import com.txt.datacollection.domain.Person;
 import com.txt.datacollection.resipository.PersonResipository;
 import com.txt.datacollection.service.MotorLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,16 +61,14 @@ public class DataPushController {
 
             } else {
 
-                String paramName = startWithReg.get(i);
+              /*  String paramName = startWithReg.get(i);
                 String parameterValue = request.getParameter(paramName);
                 //获取参数名称
-                String filedName = PararmNameValue.getObjectName(paramName);
-                //通过属性名字 获取Filed对下给你
                 Field declaredField = motorLog.getClass().getDeclaredField(filedName);
                 //设置访问权限
                 declaredField.setAccessible(true);
                 // 赋值
-                declaredField.set(motorLog, parameterValue);
+                declaredField.set(motorLog, parameterValue);*/
 
             }
 
