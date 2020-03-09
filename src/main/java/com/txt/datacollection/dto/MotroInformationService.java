@@ -22,4 +22,8 @@ public class MotroInformationService {
     }
 
 
+    MotorInformation findMotorInformationByipAndRegStartId(String ip, String startId) {
+        return motoInformationResipository.findMotorInformationByIpAndRegStartId(ip, startId);
+    }
+
 }

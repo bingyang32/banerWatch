@@ -1,6 +1,8 @@
 package com.txt.datacollection.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,10 +18,13 @@ import java.time.LocalDateTime;
  **/
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class MotorLog {
     @Id
     @GeneratedValue
     private Integer id;
+    private String ip;
     private String c;
     private String y;
     private String z;
