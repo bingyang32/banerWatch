@@ -23,6 +23,7 @@ public class MotorInformation {
     private String ip;
     //马达型号ID
     private String motorId;
+    private String line;
     private String name;
     private String motorSite;
 }

@@ -3,6 +3,7 @@ package com.txt.datacollection.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,11 +26,14 @@ public class MotorLog {
     @GeneratedValue
     private Integer id;
     private String ip;
-    private String c;
-    private String y;
-    private String z;
-    private String xas;
-    private String yas;
+    private Double x;
+    private Double y;
+    //温度
+    private Double c;
+    //x加速度
+    private Double xas;
+    //y加速度
+    private Double yas;
     private LocalDateTime time;
     private String regStartId;
 

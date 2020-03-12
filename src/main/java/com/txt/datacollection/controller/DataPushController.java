@@ -1,10 +1,8 @@
 package com.txt.datacollection.controller;
 
-import com.mysql.cj.util.TimeUtil;
 import com.txt.datacollection.domain.MotorLog;
-import com.txt.datacollection.resipository.PersonResipository;
 import com.txt.datacollection.service.MotorLogService;
-import com.txt.datacollection.util.NetUtil;
+import com.txt.datacollection.util.RegUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,40 +26,43 @@ import java.util.stream.Collectors;
 @RestController
 public class DataPushController {
     @Autowired
-    PersonResipository personResipository;
-    @Autowired
     MotorLogService motorLogService;
 
 
     @GetMapping("push")
     public void getMapping(ServletRequest request) throws IOException, NoSuchFieldException, IllegalAccessException {
         Enumeration<String> parameterNames = request.getParameterNames();
-        //判断当前参数是否以reg 开头
-
-        //如果是判断-1 mod 5 = 0 则找到都
 
         // IterUtil.toList()
-
+        //将获取到的参数转化为列表
         ArrayList<String> list = Collections.list(parameterNames);
-
-
-        //获取reg开头的参数
-        List<String> startWithReg = list.stream().filter(s -> s.startsWith("reg")).collect(Collectors.toList());
-
+        //获取时间
         String strTime = request.getParameter("pkt");
+        //解析时间
         DateTimeFormatter formattor = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        LocalDateTime dateTime = LocalDateTime.parse(strTime, formattor);
+        LocalDateTime dateTime =  LocalDateTime.parse(strTime, formattor);
+        //获取ip地址
         String ipAddr=request.getParameter("ipaddr");
         MotorLog motorLog = null;
+        //获取reg开头的参数,并按照数字部分进行排序
+        List<String> startWithReg = list.stream().filter(s -> s.startsWith("reg")).sorted((o1, o2) -> {
+            String num1 = RegUtil.getNum(o1);
+            String num2 = RegUtil.getNum(o2);
+            Double d1 = Double.parseDouble(num1);
+            Double d2 = Double.parseDouble(num2);
+            return d1.compareTo(d2);
+
+        }).collect(Collectors.toList());
+        //保存reg开头参数
         for (int i = 0; i < startWithReg.size(); i+=5) {
             motorLog=new MotorLog();
             String paramName = startWithReg.get(i).toString();
             motorLog.setRegStartId(paramName);
-            motorLog.setY(request.getParameter(paramName));
-            motorLog.setZ(request.getParameter(startWithReg.get(i+1)));
-            motorLog.setC(request.getParameter(startWithReg.get(i+2)));
-            motorLog.setXas(request.getParameter(startWithReg.get(i+3)));
-            motorLog.setYas(request.getParameter(startWithReg.get(i+4)));
+            motorLog.setX(Double.parseDouble(request.getParameter(paramName)));
+            motorLog.setY(Double.parseDouble(request.getParameter(startWithReg.get(i+1))) );
+            motorLog.setC(Double.parseDouble(request.getParameter(startWithReg.get(i + 2))));
+            motorLog.setXas(Double.parseDouble(request.getParameter(startWithReg.get(i + 3))));
+            motorLog.setYas(Double.parseDouble(request.getParameter(startWithReg.get(i + 4))));
             motorLog.setIp(ipAddr);
             motorLog.setTime(dateTime);
             motorLogService.save(motorLog);
