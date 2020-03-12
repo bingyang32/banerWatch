@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.hxtt.sql.access.AccessDriver
+    url: jdbc:Access:///d:/db/a1.accdb
+    druid:
+      filter:
+        stat:
+          log-slow-sql: true
+      stat-view-servlet:
+        login-username: admin
+        login-password: admin
+#        reset-enable: false
+#        url-pattern: /*
+        enabled: true
+      web-stat-filter:
+        enabled: true
+    username: root
+    password: 123456
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    database-platform: org.hibernate.dialect.SQLServerDialect
+    hibernate:
+      ddl-auto: update
+server:
+  port: 81
