@@ -41,11 +41,12 @@ public class DataPushController {
         //解析时间
         DateTimeFormatter formattor = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime dateTime =  LocalDateTime.parse(strTime, formattor);
-        //获取ip地址
+        //获取ip地址，避免内网ip，取请求ip
         String ipAddr=request.getParameter("ipaddr");
         MotorLog motorLog = null;
         //获取reg开头的参数,并按照数字部分进行排序
         List<String> startWithReg = list.stream().filter(s -> s.startsWith("reg")).sorted((o1, o2) -> {
+            //参数动态排序
             String num1 = RegUtil.getNum(o1);
             String num2 = RegUtil.getNum(o2);
             Double d1 = Double.parseDouble(num1);
@@ -53,7 +54,7 @@ public class DataPushController {
             return d1.compareTo(d2);
 
         }).collect(Collectors.toList());
-        //保存reg开头参数
+        //保存reg开头参数和必要参数
         for (int i = 0; i < startWithReg.size(); i+=5) {
             motorLog=new MotorLog();
             String paramName = startWithReg.get(i).toString();

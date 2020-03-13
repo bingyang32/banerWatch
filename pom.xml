@@ -26,6 +26,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+
         </dependency>
 
         <dependency>
@@ -67,6 +68,7 @@
             <artifactId>hutool-all</artifactId>
             <version>5.2.0</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -82,6 +84,8 @@
                     <mainClass>com.txt.datacollection.DemoApplication</mainClass>
                 </configuration>
             </plugin>
+
+
         </plugins>
     </build>
 

@@ -2,7 +2,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///motormon?serverTimezone=GMT%2B8
+    url: jdbc:mysql:///motormonitor?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
     druid:
       filter:
         stat:
@@ -16,7 +16,7 @@ spring:
       web-stat-filter:
         enabled: true
     username: root
-    password: 123456
+    password: admin
   jpa:
     generate-ddl: true
     show-sql: true
