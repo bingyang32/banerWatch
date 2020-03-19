@@ -3,8 +3,10 @@ package com.txt.datacollection.controller;
 import com.txt.datacollection.domain.MotorLog;
 import com.txt.datacollection.service.MotorLogService;
 import com.txt.datacollection.util.RegUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletRequest;
@@ -24,12 +26,13 @@ import java.util.stream.Collectors;
  * @Date 2020-03-08 15:03
  **/
 @RestController
+@Slf4j
 public class DataPushController {
     @Autowired
     MotorLogService motorLogService;
 
 
-    @GetMapping("push")
+    @RequestMapping("push")
     public void getMapping(ServletRequest request) throws IOException, NoSuchFieldException, IllegalAccessException {
         Enumeration<String> parameterNames = request.getParameterNames();
 
@@ -40,7 +43,7 @@ public class DataPushController {
         String strTime = request.getParameter("pkt");
         //解析时间
         DateTimeFormatter formattor = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        LocalDateTime dateTime =  LocalDateTime.parse(strTime, formattor);
+        LocalDateTime dateTime = LocalDateTime.now();// LocalDateTime.parse(strTime, formattor);
         //获取ip地址，避免内网ip，取请求ip
         String ipAddr=request.getParameter("ipaddr");
         MotorLog motorLog = null;
@@ -54,19 +57,23 @@ public class DataPushController {
             return d1.compareTo(d2);
 
         }).collect(Collectors.toList());
+
+        System.out.println("==============================================================================");
         //保存reg开头参数和必要参数
-        for (int i = 0; i < startWithReg.size(); i+=5) {
+        for (int i = 0; i < startWithReg.size(); i+=6) {
             motorLog=new MotorLog();
             String paramName = startWithReg.get(i).toString();
             motorLog.setRegStartId(paramName);
-            motorLog.setX(Double.parseDouble(request.getParameter(paramName)));
-            motorLog.setY(Double.parseDouble(request.getParameter(startWithReg.get(i+1))) );
-            motorLog.setC(Double.parseDouble(request.getParameter(startWithReg.get(i + 2))));
-            motorLog.setXas(Double.parseDouble(request.getParameter(startWithReg.get(i + 3))));
-            motorLog.setYas(Double.parseDouble(request.getParameter(startWithReg.get(i + 4))));
+            motorLog.setZ(Double.parseDouble(request.getParameter(paramName))/1000);
+            motorLog.setX(Double.parseDouble(request.getParameter(startWithReg.get(i+1)))/1000 );
+            motorLog.setZUpperAs(Double.parseDouble(request.getParameter(startWithReg.get(i + 2)))/1000);
+            motorLog.setXas(Double.parseDouble(request.getParameter(startWithReg.get(i + 3)))/1000);
+            motorLog.setZLowerAs(Double.parseDouble(request.getParameter(startWithReg.get(i + 4)))/1000);
+            motorLog.setC(Double.parseDouble(request.getParameter(startWithReg.get(i + 5)))/20);
             motorLog.setIp(ipAddr);
             motorLog.setTime(dateTime);
             motorLogService.save(motorLog);
+            log.info("参数为{}", motorLog);
         }
 
 

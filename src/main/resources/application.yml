@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: sqlite
+    active: mysql
 
 
 

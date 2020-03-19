@@ -26,5 +26,4 @@ public class MotorInformation {
     private Integer motorId;
     private String line;
     private String name;
-    private String motorSite;
 }

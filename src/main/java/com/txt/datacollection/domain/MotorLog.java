@@ -26,14 +26,16 @@ public class MotorLog {
     @GeneratedValue
     private Integer id;
     private String ip;
+    private Double z;
     private Double x;
-    private Double y;
     //温度
     private Double c;
+    //z加速度
+    private Double zUpperAs;
     //x加速度
     private Double xas;
-    //y加速度
-    private Double yas;
+    //zLower
+    private Double zLowerAs;
     private LocalDateTime time;
     private String regStartId;
 

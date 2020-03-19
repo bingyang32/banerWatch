@@ -2,13 +2,13 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///motormonitor?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
+    url: jdbc:mysql://192.168.1.76/motormonitor?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
     druid:
       filter:
         stat:
           log-slow-sql: true
       stat-view-servlet:
-        login-username: admin
+        login-username: root
         login-password: admin
 #        reset-enable: false
 #        url-pattern: /*
@@ -16,11 +16,11 @@ spring:
       web-stat-filter:
         enabled: true
     username: root
-    password: 123456
+    password: admin
   jpa:
     generate-ddl: true
     show-sql: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL57Dialect
     hibernate:
       ddl-auto: update
 server:
