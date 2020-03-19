@@ -1,8 +1,10 @@
 spring:
   profiles:
-    active: mysql
+    active: sqlite
 
 
 
 
 #http://localhost:81/push?pkt=20200309143658&ipaddr=10.129.156.32&reg1=145&reg2=112&reg3=460&reg4=4&reg5=5&reg6=6&reg7=7&reg8=8&reg9=9&reg10=10&reg11=11&reg12=12&reg13=13&reg14=14&reg15=15&reg16=16&reg17=17&reg18=18&reg19=19&reg20=20
+
+

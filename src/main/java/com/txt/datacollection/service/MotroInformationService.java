@@ -1,4 +1,4 @@
-package com.txt.datacollection.dto;
+package com.txt.datacollection.service;
 
 import com.txt.datacollection.domain.MotorInformation;
 import com.txt.datacollection.resipository.MotoInformationResipository;

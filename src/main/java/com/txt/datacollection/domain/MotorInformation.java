@@ -2,6 +2,7 @@ package com.txt.datacollection.domain;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
