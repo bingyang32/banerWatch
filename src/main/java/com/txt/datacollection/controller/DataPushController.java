@@ -43,12 +43,11 @@ public class DataPushController {
         //获取时间
         String strTime = request.getParameter("pkt");
         HttpServletRequest req = (HttpServletRequest) request;
-        printUrl(req);
+        String url = getCurrentUrl(req);
+        System.out.println("Current request Url is :" + url);
 
         if (strTime == null) {
-            log.error("参数传递错误，From:{}", NetUtil.getIpAddr(req));
-
-
+            log.error("参数传递错误，From:{},Url:{}", NetUtil.getIpAddr(req),url);
             throw new RuntimeException("Parameter error");
         }
         //解析时间
@@ -67,8 +66,11 @@ public class DataPushController {
             return d1.compareTo(d2);
 
         }).collect(Collectors.toList());
-
-        System.out.println("==============================================================================");
+        if (startWithReg.size() % 6 != 0) {
+            log.error("reg Count is Wrong!From:{},Url:{}", NetUtil.getIpAddr(req),url);
+            throw new RuntimeException("Parameter error");
+        }
+     System.out.println("-----------------------------------------------------------------");
         //保存reg开头参数和必要参数
         for (int i = 0; i < startWithReg.size(); i += 6) {
             motorLog = new MotorLog();
@@ -83,14 +85,9 @@ public class DataPushController {
             motorLog.setIp(ipAddr);
             motorLog.setTime(dateTime);
             motorLogService.save(motorLog);
+            System.out.println("Saved:"+ motorLog.toString());
+        }
 
-        }
-        if (motorLog != null) {
-            log.info("Saved:{}", motorLog.toString());
-        } else {
-            log.error("实体保存失败。。。。");
-            throw new RuntimeException("Motor entity error...");
-        }
 
 
         // Log log = LogFactory.get();
@@ -99,7 +96,7 @@ public class DataPushController {
 
     }
 
-    private void printUrl( HttpServletRequest req) {
+    private String getCurrentUrl(HttpServletRequest req) {
         String url = "";
         url = req.getScheme() +"://" + req.getServerName()
                 + ":" +req.getServerPort()
@@ -108,7 +105,7 @@ public class DataPushController {
             url += "?" + req.getQueryString();
         }
 
-        System.out.println("Current Rquest Url:" +url);
+     return url;
     }
 
 }
