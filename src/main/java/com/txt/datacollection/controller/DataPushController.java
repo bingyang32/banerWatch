@@ -43,7 +43,8 @@ public class DataPushController {
         //获取时间
         String strTime = request.getParameter("pkt");
         HttpServletRequest req = (HttpServletRequest) request;
-        System.out.println(req.getRequestURI());
+        printUrl(req);
+
         if (strTime == null) {
             log.error("参数传递错误，From:{}", NetUtil.getIpAddr(req));
 
@@ -96,6 +97,18 @@ public class DataPushController {
         // DateTime timeParsed = DateUtil.parse("2017-01-15", "yyyy-MM-dd");
 
 
+    }
+
+    private void printUrl( HttpServletRequest req) {
+        String url = "";
+        url = req.getScheme() +"://" + req.getServerName()
+                + ":" +req.getServerPort()
+                + req.getServletPath();
+        if (req.getQueryString() != null){
+            url += "?" + req.getQueryString();
+        }
+
+        System.out.println("Current Rquest Url:" +url);
     }
 
 }
